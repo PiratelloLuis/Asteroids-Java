@@ -1,29 +1,32 @@
 @echo off
 echo ===============================
-echo Compilando o projeto...
+echo Cleaning and Compiling...
 echo ===============================
 
+:: Delete old classes to ensure a fresh build
+if exist out rmdir /s /q out
+mkdir out
+
 javac ^
- --module-path "F:\Javafx\javafx-sdk-17.0.17\lib" ^
+ --module-path "D:\javafx-sdk-17.0.17\lib" ^
  --add-modules javafx.controls,javafx.fxml ^
  -d out ^
  src\main\java\org\example\Asteroids.java
 
 IF ERRORLEVEL 1 (
     echo.
-    echo ❌ Erro na compilacao.
+    echo ❌ Compilation Error. Check your code!
     pause
     exit /b
 )
 
 echo.
 echo ===============================
-echo Executando o jogo...
+echo Running Asteroids...
 echo ===============================
 
 java ^
- --enable-native-access=javafx.graphics ^
- --module-path "F:\Javafx\javafx-sdk-17.0.17\lib" ^
+ --module-path "D:\javafx-sdk-17.0.17\lib" ^
  --add-modules javafx.controls,javafx.fxml ^
  -cp out ^
  org.example.Asteroids
